@@ -1,20 +1,59 @@
 trigger: none
+
 jobs:
-  - job: DownloadRepo
-    displayName: 'Download repo'
-    variables:
-      workingDir: '$(System.DefaultWorkingDirectory)\'
-      dxFeedVar: '$(DXFeed)'
-      NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
-    pool:
-      vmImage: 'windows-latest'
-    steps:
-    - task: PowerShell@2
-      inputs:
-        filePath: '$(workingDir)\Start.ps1'
-        showWarnings: true
-        failOnStderr: true
-        pwsh: true
-      env:
-        apobekiarisToken: $(apobekiarisToken)
-        DxFeed: $(DxFeed)
+- job: DownloadRepo
+  displayName: 'Download repo'
+  variables:
+    workingDir: '$(System.DefaultWorkingDirectory)\'
+    NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - task: PowerShell@2
+    displayName: 'Clone and Move Files'
+    inputs:
+      targetType: 'inline'
+      script: |
+        $GithubUserName = "apobekiaris"
+        $GithubPass = $env:apobekiarisToken  # Assuming this is a secret variable set in the pipeline
+        $DXApiFeed = $env:DxFeed              # Assuming this is set in the pipeline variables
+
+        # Construct the repository clone URL with credentials
+        $url = "https://$GithubUserName`:$GithubPass@github.com/apobekiaris/CryptoManager2.git"
+        
+        # Clone the repository
+        git clone $url
+
+        # Change to the cloned directory
+        cd CryptoManager2
+
+        # Move the cloned files to the Azure DevOps default working directory
+        Move-Item -Path ".\*" -Destination $env:BUILD_SOURCESDIRECTORY -Force
+
+    env:
+      apobekiarisToken: $(apobekiarisToken)
+      DxFeed: $(DxFeed)
+  - task: Cache@2
+    inputs:
+      key: 'nuget | "$(Agent.OS)" | **/packages.lock.json,!**/bin/**,!**/obj/**'
+      restoreKeys: 'nuget | "$(Agent.OS)"'
+      path: '$(NUGET_PACKAGES)'
+    displayName: 'Cache NuGet packages'
+
+  - task: PowerShell@2
+    displayName: 'Setup NuGet sources and Build'
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Adding NuGet sources
+        dotnet nuget add source $env:DxFeed --name DX
+        dotnet nuget add source https://xpandnugetserver.azurewebsites.net/nuget --name Xpand
+        
+        # Build the project
+        dotnet build --configuration DEBUG
+
+        # Start SQL LocalDB instance
+        sqllocaldb start mssqllocaldb
+
+    env:
+      DxFeed: $(DxFeed) # Assuming DxFeed is a pipeline variable that stores the NuGet feed URL
