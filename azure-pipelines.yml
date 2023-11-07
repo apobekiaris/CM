@@ -1,19 +1,52 @@
 trigger: none
 jobs:
-  - job: DownloadRepo
-    displayName: 'Download repo'
+  - job: RunTests
+    strategy:
+      matrix:
+        BinanceTests:
+          projectName: 'Binance.Tests'
+        ChainListTests:
+          projectName: 'ChainList.Tests'
+        CoinGeckoTests:
+          projectName: 'CoinGecko.Tests'
+        # CryptoManagerTests:
+        #   projectName: 'CryptoManager.Tests'
+        EVMTests:
+          projectName: 'EVM.Tests'
+        ModuleWinTests:
+          projectName: 'Module.Win.Tests'
+        RelayRouterTests:
+          projectName: 'RelayRouter.Tests'
+        # SymbolTickerTests:
+        #   projectName: 'SymbolTicker.Tests'
+        # ThreeCommasTests:
+        #   projectName: 'ThreeCommas.Tests'
+    pool:
+      vmImage: 'windows-latest'
     variables:
       workingDir: '$(System.DefaultWorkingDirectory)\'
       dxFeedVar: '$(DXFeed)'
       NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
-    pool:
-      vmImage: 'windows-latest'
     steps:
-    - task: PowerShell@2
-      inputs:
-        filePath: '$(workingDir)\Start.ps1'
-        showWarnings: true
-        pwsh: true
-      env:
-        apobekiarisToken: $(apobekiarisToken)
-        DxFeed: $(DxFeed)
+      - task: PowerShell@2
+        inputs:
+          filePath: '$(workingDir)\Start.ps1'
+          showWarnings: true
+          pwsh: true
+        env:
+          CMToken: $(cmToken)
+          DxFeed: $(DxFeed)
+          CM_GitHub_UserName: $(CM_GitHub_UserName)
+      - task: VSTest@2
+        displayName: 'Run VSTest for $(projectName)'
+        inputs:
+          testSelector: 'testAssemblies'
+          minimumExpectedTests: 1
+          failOnMinTestsNotRun: true
+          testAssemblyVer2: |
+            **\$(projectName)\**\$(projectName).dll
+            !**\*TestAdapter.dll
+            !**\obj\**
+          searchFolder: '$(System.DefaultWorkingDirectory)'
+        env:
+          CMToken: $(cmToken)
