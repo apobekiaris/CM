@@ -22,7 +22,7 @@ jobs:
         # ThreeCommasTests:
         #   projectName: 'ThreeCommas.Tests'
     pool:
-      vmImage: 'windows-latest'
+      vmImage: 'windows-2022'
     variables:
       workingDir: '$(System.DefaultWorkingDirectory)\'
       dxFeedVar: '$(DXFeed)'
@@ -38,7 +38,7 @@ jobs:
           DxFeed: $(DxFeed)
           CM_GitHub_UserName: $(CM_GitHub_UserName)
       - task: VSTest@2
-        displayName: 'Run VSTest for $(projectName)'
+        displayName: 'Run VSTest for $(projectName)' 
         inputs:
           testSelector: 'testAssemblies'
           minimumExpectedTests: 1
