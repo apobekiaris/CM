@@ -9,7 +9,7 @@ cd .\CryptoManager2
 
 dotnet nuget add source $DXApiFeed --name DX
 dotnet nuget add source https://xpandnugetserver.azurewebsites.net/nuget --name Xpand
-dotnet build --configuration Debug
+dotnet build --configuration Debug "/p:DefineConstants=TEST"
 
 if ($LASTEXITCODE -ne 0) {
   exit $LASTEXITCODE
