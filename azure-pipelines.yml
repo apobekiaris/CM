@@ -28,13 +28,6 @@ jobs:
       dxFeedVar: '$(DXFeed)'
       NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
     steps:
-      - task: UseDotNet@2
-        displayName: 'Install .NET SDK (x86)'
-        inputs:
-          packageType: 'sdk'
-          version: '6.0.x' # This will install the latest patch version of .NET 6 SDK
-          installationPath: $(Agent.ToolsDirectory)/dotnet
-          architecture: 'x86'
       - task: PowerShell@2
         inputs:
           filePath: '$(workingDir)\Start.ps1'
