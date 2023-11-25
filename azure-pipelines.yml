@@ -27,6 +27,7 @@ jobs:
       workingDir: '$(System.DefaultWorkingDirectory)\'
       dxFeedVar: '$(DXFeed)'
       NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
+      runSettingsPath: '$(workingDir)\CryptoManager2\Tests\Tests.runsettings'
     steps:
       - task: PowerShell@2
         inputs:
@@ -43,10 +44,11 @@ jobs:
           testSelector: 'testAssemblies'
           minimumExpectedTests: 1
           failOnMinTestsNotRun: true
+          runSettingsFile: $(runSettingsPath)
           testAssemblyVer2: |
             **\$(projectName)\**\$(projectName).dll
             !**\*TestAdapter.dll
             !**\obj\**
-          searchFolder: '$(System.DefaultWorkingDirectory)'
+          searchFolder: '$(workingDir)'
         env:
           CMToken: $(cmToken)
