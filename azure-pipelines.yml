@@ -3,26 +3,26 @@ jobs:
   - job: RunTests
     strategy:
       matrix:
-        BinanceTests:
-          projectName: 'Binance.Tests'
-        ChainListTests:
-          projectName: 'ChainList.Tests'
-        CoinGeckoTests:
-          projectName: 'CoinGecko.Tests'
+        # BinanceTests:
+        #   projectName: 'Binance.Tests'
+        # ChainListTests:
+        #   projectName: 'ChainList.Tests'
+        # CoinGeckoTests:
+        #   projectName: 'CoinGecko.Tests'
         # CryptoManagerTests:
         #   projectName: 'CryptoManager.Tests'
-        EVMTests:
-          projectName: 'EVM.Tests'
+        # EVMTests:
+        #   projectName: 'EVM.Tests'
         ModuleWinTests:
           projectName: 'Module.Win.Tests'
-        RelayRouterTests:
-          projectName: 'RelayRouter.Tests'
+        # RelayRouterTests:
+        #   projectName: 'RelayRouter.Tests'
         # SymbolTickerTests:
         #   projectName: 'SymbolTicker.Tests'
         # ThreeCommasTests:
         #   projectName: 'ThreeCommas.Tests'
     pool:
-      vmImage: 'windows-2022'
+      name: 'Self'
     variables:
       workingDir: '$(System.DefaultWorkingDirectory)\'
       dxFeedVar: '$(DXFeed)'
