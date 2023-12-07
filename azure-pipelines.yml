@@ -15,8 +15,8 @@ jobs:
         #   projectName: 'EVM.Tests'
         ModuleWinTests:
           projectName: 'Module.Win.Tests'
-        # RelayRouterTests:
-        #   projectName: 'RelayRouter.Tests'
+        RelayRouterTests:
+          projectName: 'RelayRouter.Tests'
         # SymbolTickerTests:
         #   projectName: 'SymbolTicker.Tests'
         # ThreeCommasTests:
