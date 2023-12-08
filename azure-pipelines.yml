@@ -7,8 +7,8 @@ jobs:
         #   projectName: 'Binance.Tests'
         # ChainListTests:
         #   projectName: 'ChainList.Tests'
-        # CoinGeckoTests:
-        #   projectName: 'CoinGecko.Tests'
+        CoinGeckoTests:
+          projectName: 'CoinGecko.Tests'
         # CryptoManagerTests:
         #   projectName: 'CryptoManager.Tests'
         # EVMTests:
