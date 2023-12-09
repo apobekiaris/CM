@@ -5,8 +5,8 @@ jobs:
       matrix:
         # BinanceTests:
         #   projectName: 'Binance.Tests'
-        # ChainListTests:
-        #   projectName: 'ChainList.Tests'
+        ChainListTests:
+          projectName: 'ChainList.Tests'
         CoinGeckoTests:
           projectName: 'CoinGecko.Tests'
         # CryptoManagerTests:
