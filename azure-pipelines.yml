@@ -3,8 +3,8 @@ jobs:
   - job: RunTests
     strategy:
       matrix:
-        # BinanceTests:
-        #   projectName: 'Binance.Tests'
+        BinanceTests:
+          projectName: 'Binance.Tests'
         ChainListTests:
           projectName: 'ChainList.Tests'
         CoinGeckoTests:

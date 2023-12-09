@@ -24,5 +24,6 @@ dotnet build --configuration Debug "/p:TestConstants=TEST"
 if ($LASTEXITCODE -ne 0) {
   exit $LASTEXITCODE
 }
-
-& sqllocaldb start mssqllocaldb
+if (!(& sqllocaldb info mssqllocaldb | Select-String -Pattern "State:.*Running" -Quiet)){
+  & sqllocaldb start mssqllocaldb
+}
