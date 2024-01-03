@@ -9,18 +9,12 @@ jobs:
           projectName: 'ChainList.Tests'
         CoinGeckoTests:
           projectName: 'CoinGecko.Tests'
-        # CryptoManagerTests:
-        #   projectName: 'CryptoManager.Tests'
-        # EVMTests:
-        #   projectName: 'EVM.Tests'
+        EVMTests:
+          projectName: 'EVM.Tests'
         ModuleWinTests:
           projectName: 'Module.Win.Tests'
         RelayRouterTests:
           projectName: 'RelayRouter.Tests'
-        # SymbolTickerTests:
-        #   projectName: 'SymbolTicker.Tests'
-        # ThreeCommasTests:
-        #   projectName: 'ThreeCommas.Tests'
     pool:
       name: 'Self'
     variables:
@@ -52,3 +46,4 @@ jobs:
           searchFolder: '$(workingDir)'
         env:
           CMToken: $(cmToken)
+          BSC_PK: $(BSC_PK)
