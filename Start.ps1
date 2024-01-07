@@ -15,6 +15,8 @@ else{
 cd .\CryptoManager2
 if (!(dotnet nuget list source |sls DX)){
   dotnet nuget add source $DXApiFeed --name DX
+}
+if (!(dotnet nuget list source |sls Xpand)){
   dotnet nuget add source https://xpandnugetserver.azurewebsites.net/nuget --name Xpand
 }
 

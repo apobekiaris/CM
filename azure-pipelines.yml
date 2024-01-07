@@ -7,6 +7,12 @@ jobs:
           projectName: 'Binance.Tests'
         BinanceTestsEarn:
           projectName: 'Binance.Tests.Earn'
+        BinanceTestsLoans:
+          projectName: 'Binance.Tests.Loans'
+        BinanceTestsTrade:
+          projectName: 'Binance.Tests.Trade'
+        BinanceTestsTransfers:
+          projectName: 'Binance.Tests.Transfers'
         ChainListTests:
           projectName: 'ChainList.Tests'
         CoinGeckoTests:
