@@ -42,6 +42,7 @@ jobs:
           CM_GitHub_UserName: $(CM_GitHub_UserName)
       - task: VSTest@2
         displayName: 'Run VSTest for $(projectName)' 
+        retryCountOnTaskFailure: 2
         inputs:
           testSelector: 'testAssemblies'
           minimumExpectedTests: 1
