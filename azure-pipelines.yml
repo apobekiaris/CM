@@ -13,6 +13,8 @@ jobs:
           projectName: 'Binance.Tests.Trade'
         BinanceTestsTransfers:
           projectName: 'Binance.Tests.Transfers'
+        BinanceTestsTest:
+          projectName: 'Binance.Tests.Test'
         ChainListTests:
           projectName: 'ChainList.Tests'
         CoinGeckoTests:
